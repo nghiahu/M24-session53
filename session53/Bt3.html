@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function processArray(array, callback) {
+            for (let index of array) {
+              setTimeout(() => {
+                callback(array[index-1]);
+              }, index * 1000); 
+            };
+          }
+          processArray([1, 2, 3, 4, 5], (item)=>{console.log('Phần tử thứ: ',item)});
+          
+    </script>
+</body>
+</html>

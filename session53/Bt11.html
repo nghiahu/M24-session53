@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <script>
+        let taskList = [];
+
+        function addTask() {
+            const taskName = document.getElementById('taskInput').value;
+            const messageElement = document.getElementById('message');
+            
+            if (taskList.includes(taskName)) {
+                messageElement.textContent = `Error: Task '${taskName}' already exists in the list.`;
+                messageElement.style.color = 'red';
+            } else {
+                taskList.push(taskName);
+                messageElement.textContent = `Task '${taskName}' has been added successfully.`;
+                messageElement.style.color = 'green';
+                displayTasks();
+            }
+        }
+
+        function deleteTask() {
+            const taskName = document.getElementById('taskInput').value;
+            const messageElement = document.getElementById('message');
+            
+            const taskIndex = taskList.indexOf(taskName);
+            if (taskIndex === -1) {
+                messageElement.textContent = `Error: Task '${taskName}' does not exist in the list.`;
+                messageElement.style.color = 'red';
+            } else {
+                taskList.splice(taskIndex, 1);
+                messageElement.textContent = `Task '${taskName}' has been deleted successfully.`;
+                messageElement.style.color = 'green';
+                displayTasks();
+            }
+        }
+
+        function displayTasks() {
+            const taskListElement = document.getElementById('taskList');
+            taskListElement.innerHTML = '';
+            
+            if (taskList.length === 0) {
+                taskListElement.textContent = 'The task list is currently empty.';
+            } else {
+                taskList.forEach(task => {
+                    const li = document.createElement('li');
+                    li.textContent = task;
+                    taskListElement.appendChild(li);
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add Task</button>
+    <button onclick="deleteTask()">Delete Task</button>
+    <p id="message"></p>
+    <h2>Current Tasks</h2>
+    <ul id="taskList"></ul>
+</body>
+</html>

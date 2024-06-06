@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+    Đồng bộ và bất đồng bộ 
+    1. Đồng bộ : synchronous
+    Ngôn ngữ javascrip là 1 ngôn ngữ đơn luồng (single-thread: chỉ 1  luồng chạy duy nhất 
+    , luồng code chạy từ trái qua phải và từ trên xuống dưới)
+    2. Bất đồng bộ : asynchronous
+    - những việc cần thời gian xử lý như các hàm settimeout, setInterval, readfile,
+    writefile, gửi request lên server, các thao tác tương tác database
+    Trong JS sinh ra các cách để xử lý các tác vụ bất đồng bộ 
+    * 3 cách
+    1. dùng callback
+        callback là 1 hàm được truyền vào làm đối sô của hàm khác 
+    2. promise
+    3. async-await
+     -->
+    <script>
+        /* console.log("công việc 1")
+        setTimeout(()=>{
+            console.log('công việc 2')
+        },1000)
+        console.log('công việc 3') */
+        function task1(task){
+            // cần thời gian đi xử lý công việc 
+            // ví dụ công việc 1 cần 2s để thức thi
+            setTimeout(()=>{
+                console.log("Công việc 1 được thực hiện");
+                task()
+            },2000)
+        }
+        function task2(){
+            console.log("được thực thi sau khi tác 1 hoàn thành ")
+        }
+        //task1(task2);
+       /* setTimeout(()=>{
+            console.log("công việc 1 thực thi");
+            setTimeout(()=>{
+                console.log('công việc 2 sau công việc 1')
+                setTimeout(()=>{
+                    console.log("công việc 3 sau công việc 2")
+                },1000)
+            },1000);
+        },1000) */
+
+        //khi viết nhiều callback lồng nhau thì sẽ rơi vào tình trạng callback hell(địa ngục)
+       // let arr=[1,2,3,4,5];
+       // let result = arr.map((item)=>{
+          //  return item*2
+       // })
+
+       //dùng callback viết 1 hàm xử lý tương tự như hàm map
+        // custum lại hàm map
+       function myMap(a,b){
+        let result = [];
+        for (const item of a){
+            result.push(b(item));
+        }
+        return result;
+       }
+       myMap(arr,(item)=>item*2)
+
+       // dùng callback để custom lại hàm filter-lọc
+       let arr = [1,2,3,4,5]
+       function myFilter(arr,callback){
+        let result = [];
+        for (const item of arr){
+            if(callback(item)){
+            result.push(item);}
+        }
+        return result;
+       }
+        console.log(myFilter(arr,(item)=> item > 3))
+    </script>
+</body>
+</html>
